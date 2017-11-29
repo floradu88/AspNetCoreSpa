@@ -42,8 +42,8 @@ export function getAppData(appService: AppService) {
     declarations: [
         TranslatePipe,
         AppComponent,
-        HeaderComponent,
-        FooterComponent
+        // HeaderComponent,
+        // FooterComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,20 +55,20 @@ export function getAppData(appService: AppService) {
         environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
         routing,
         // https://github.com/flauc/angular2-notifications/blob/master/docs/toastNotifications.md
-        SimpleNotificationsModule.forRoot(),
+        // SimpleNotificationsModule.forRoot(),
     ],
     providers: [
-        AccountService,
+        // AccountService,
         AppService,
-        DataService,
+        // DataService,
         // HeadService,
-        LogService,
-        LogPublishersService,
-        UtilityService,
-        { provide: APP_INITIALIZER, useFactory: getAppData, deps: [AppService], multi: true },
-        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        // LogService,
+        // LogPublishersService,
+        // UtilityService,
+        // { provide: APP_INITIALIZER, useFactory: getAppData, deps: [AppService], multi: true },
+        // { provide: ErrorHandler, useClass: GlobalErrorHandler },
         { provide: GlobalRef, useClass: BrowserGlobalRef },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TimingInterceptor, multi: true },
 
     ],
