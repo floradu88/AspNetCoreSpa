@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { SimpleNotificationsModule } from './notifications';
 import { HomeModule } from './home/home.module';
@@ -16,7 +15,6 @@ import { environment } from '../environments/environment';
 import { AppService } from './app.service';
 import {
     AccountService,
-    ApiTranslationLoader,
     AuthInterceptor,
     DataService,
     GlobalErrorHandler,
@@ -26,11 +24,12 @@ import {
     UtilityService,
     BrowserGlobalRef,
     GlobalRef,
-    HeadService
+    // HeadService
 } from './services';
 
 // App level components
 import { AppComponent } from './app.component';
+import { TranslatePipe } from './translate.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -41,6 +40,7 @@ export function getAppData(appService: AppService) {
 @NgModule({
     bootstrap: [AppComponent],
     declarations: [
+        TranslatePipe,
         AppComponent,
         HeaderComponent,
         FooterComponent
@@ -50,20 +50,18 @@ export function getAppData(appService: AppService) {
         BrowserAnimationsModule,
         HomeModule,
         HttpClientModule,
-        NgbModule.forRoot(),
+        // NgbModule.forRoot(),
         OAuthModule.forRoot(),
         environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
         routing,
         // https://github.com/flauc/angular2-notifications/blob/master/docs/toastNotifications.md
         SimpleNotificationsModule.forRoot(),
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: ApiTranslationLoader } })
     ],
     providers: [
-        TranslateModule,
         AccountService,
         AppService,
         DataService,
-        HeadService,
+        // HeadService,
         LogService,
         LogPublishersService,
         UtilityService,
@@ -74,7 +72,6 @@ export function getAppData(appService: AppService) {
         { provide: HTTP_INTERCEPTORS, useClass: TimingInterceptor, multi: true },
 
     ],
-    exports: [
-    ]
+    exports: []
 })
 export class AppModule { }

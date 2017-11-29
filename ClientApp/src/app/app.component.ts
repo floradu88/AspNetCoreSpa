@@ -1,15 +1,14 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+// import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
 import { Params, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs/Subscription';
 import { authConfig } from './auth.config';
 
 import { routerTransition } from './router.animations';
 import { ExternalLoginStatus } from './app.models';
-import { HeadService } from './services';
+// import { HeadService } from './services';
 
 @Component({
   selector: 'appc-root',
@@ -18,26 +17,21 @@ import { HeadService } from './services';
 })
 export class AppComponent implements OnInit, OnDestroy {
   // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
-  private endPageTitle = 'AspNetCoreSpa';
+  // private endPageTitle = 'AspNetCoreSpa';
   // If no Title is provided, we'll use a default one before the dash(-)
-  private defaultPageTitle = 'AspNetCoreSpa';
+  // private defaultPageTitle = 'AspNetCoreSpa';
 
   private routerSub$: Subscription;
   constructor(
-    private title: Title,
-    private meta: Meta,
-    private linkService: HeadService,
-    public translate: TranslateService,
+    // private title: Title,
+    // private meta: Meta,
+    // private linkService: HeadService,
     private router: Router,
     @Inject('BASE_URL') private baseUrl: string,
     @Inject(PLATFORM_ID) private platformId: string,
     private activatedRoute: ActivatedRoute,
     private oauthService: OAuthService) {
     // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
 
     if (isPlatformBrowser(this.platformId)) {
       this.configureOidc();
@@ -94,29 +88,29 @@ export class AppComponent implements OnInit, OnDestroy {
       .filter(route => route.outlet === 'primary')
       .mergeMap(route => route.data)
       .subscribe((event) => {
-        this._setMetaAndLinks(event);
+        // this._setMetaAndLinks(event);
       });
   }
 
-  private _setMetaAndLinks(event: any) {
+  // private _setMetaAndLinks(event: any) {
 
-    // Set Title if available, otherwise leave the default Title
-    const title = event['title']
-      ? `${event['title']} - ${this.endPageTitle}`
-      : `${this.defaultPageTitle} - ${this.endPageTitle}`;
+  //   // Set Title if available, otherwise leave the default Title
+  //   const title = event['title']
+  //     ? `${event['title']} - ${this.endPageTitle}`
+  //     : `${this.defaultPageTitle} - ${this.endPageTitle}`;
 
-    this.title.setTitle(title);
+  //   this.title.setTitle(title);
 
-    const metaData = event['meta'] || [];
-    const linksData = event['links'] || [];
+  //   const metaData = event['meta'] || [];
+  //   const linksData = event['links'] || [];
 
-    for (let i = 0; i < metaData.length; i++) {
-      this.meta.updateTag(metaData[i]);
-    }
+  //   for (let i = 0; i < metaData.length; i++) {
+  //     this.meta.updateTag(metaData[i]);
+  //   }
 
-    for (let i = 0; i < linksData.length; i++) {
-      this.linkService.addTag(linksData[i]);
-    }
-  }
+  //   for (let i = 0; i < linksData.length; i++) {
+  //     this.linkService.addTag(linksData[i]);
+  //   }
+  // }
 
 }

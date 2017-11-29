@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -35,6 +36,8 @@ namespace AspNetCoreSpa
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddPreRenderingDebug(HostingEnvironment);
 
             services.AddCustomHeaders();
 
@@ -136,21 +139,22 @@ namespace AspNetCoreSpa
                           //     value to 'true', so that the SSR bundle is built during publish
                           // [2] Uncomment this code block
                           */
-                          //   spa.UseSpaPrerendering(options =>
-                          //  {
-                          //      options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
-                          //      options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                          //      options.ExcludeUrls = new[] { "/sockjs-node" };
-                          //      options.SupplyData = (requestContext, obj) =>
-                          //      {
-                          //          var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
-                          //          obj.Add("appData", result);
-                          //      };
-
-                          //  });
+                          spa.UseSpaPrerendering(options =>
+                         {
+                             options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
+                             options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+                             options.ExcludeUrls = new[] { "/sockjs-node" };
+                             options.SupplyData = (requestContext, obj) =>
+                             {
+                                 var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
+                                 obj.Add("appData", result);
+                             };
+                         });
 
                           if (env.IsDevelopment())
                           {
+                              // spa.UseAngularCliServer(npmScript: "start");
+                              // OR
                               spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                           }
                       });
