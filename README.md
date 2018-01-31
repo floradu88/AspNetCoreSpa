@@ -2,6 +2,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/xm3d3c8wens0ee1b?svg=true)](https://ci.appveyor.com/project/asadsahi/aspnetcorespa)
 [![Join the chat at https://gitter.im/aspnetcorespa/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aspnetcorespa/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffloradu88%2FAspNetCoreSpa.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffloradu88%2FAspNetCoreSpa?ref=badge_shield)
 
 ## Features
 
@@ -137,3 +138,7 @@ From powershell:
 ---
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RB7XESV8CP7GW)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffloradu88%2FAspNetCoreSpa.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffloradu88%2FAspNetCoreSpa?ref=badge_large)
