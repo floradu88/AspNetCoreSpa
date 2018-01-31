@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using AspNetCoreSpa.Server.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Serilog;
-using Serilog.Events;
-using static Microsoft.AspNetCore.ResponseCompression.ResponseCompressionDefaults;
 
 namespace AspNetCoreSpa.Server
 {
@@ -16,25 +15,20 @@ namespace AspNetCoreSpa.Server
                         new JsonSerializerSettings
                         {
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                            StringEscapeHandling =  StringEscapeHandling.EscapeHtml,
+                            StringEscapeHandling = StringEscapeHandling.EscapeHtml,
                             ContractResolver = new CamelCasePropertyNamesContractResolver()
                         });
         }
-        public static void SetupSerilog()
+
+        public static IActionResult Render(this Controller ctrl, ExternalLoginStatus status = ExternalLoginStatus.Ok)
         {
-            // Configure Serilog
-            Log.Logger = new LoggerConfiguration()
-            .MinimumLevel
-            .Information()
-            .WriteTo.RollingFile("logs/log-{Date}.txt", LogEventLevel.Information) // Uncomment if logging required on text file
-            .WriteTo.Seq("http://localhost:5341/")
-            .CreateLogger();
+            if (status == ExternalLoginStatus.Ok)
+            {
+                return ctrl.LocalRedirect("~/");
+            }
+            return ctrl.LocalRedirect($"~/?externalLoginStatus={(int)status}");
+            // return RedirectToAction("Index", "Home", new { externalLoginStatus = (int)status });
         }
 
-        public static IEnumerable<string> DefaultMimeTypes => MimeTypes.Concat(new[]
-                                {
-                                    "image/svg+xml",
-                                    "application/font-woff2"
-                                });
     }
 }
